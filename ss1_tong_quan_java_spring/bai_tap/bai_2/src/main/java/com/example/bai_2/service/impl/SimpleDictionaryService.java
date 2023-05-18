@@ -13,11 +13,11 @@ public class SimpleDictionaryService implements ISimpleDictionaryService {
     private ISimpleDictionaryRepository simpleDictionaryRepository;
 
     @Override
-    public String getResultSearch(String string) {
+    public String getResultSearch(String inputSearch) {
         Map<String,String> mapDictionary = simpleDictionaryRepository.getMapDictionary();
         String result="";
         for (String key: mapDictionary.keySet()) {
-            if (string.equals(key)){
+            if (inputSearch.equals(key)){
                 result=mapDictionary.get(key);
                 break;
             }else {

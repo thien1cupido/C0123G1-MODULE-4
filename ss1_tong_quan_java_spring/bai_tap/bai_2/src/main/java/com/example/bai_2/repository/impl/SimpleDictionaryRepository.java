@@ -19,7 +19,7 @@ public class SimpleDictionaryRepository implements ISimpleDictionaryRepository {
 
     @Override
     public Map<String, String> getMapDictionary() {
-        Map<String ,String>stringMap=dictionaryRepository;
+        Map<String,String>stringMap=dictionaryRepository;
         return stringMap;
     }
 }

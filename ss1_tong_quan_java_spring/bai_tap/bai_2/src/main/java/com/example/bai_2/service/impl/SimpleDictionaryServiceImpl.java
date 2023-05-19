@@ -8,21 +8,16 @@ import org.springframework.stereotype.Service;
 import java.util.Map;
 
 @Service
-public class SimpleDictionaryService implements ISimpleDictionaryService {
+public class SimpleDictionaryServiceImpl implements ISimpleDictionaryService {
     @Autowired
     private ISimpleDictionaryRepository simpleDictionaryRepository;
 
     @Override
     public String getResultSearch(String inputSearch) {
         Map<String,String> mapDictionary = simpleDictionaryRepository.getMapDictionary();
-        String result="";
-        for (String key: mapDictionary.keySet()) {
-            if (inputSearch.equals(key)){
-                result=mapDictionary.get(key);
-                break;
-            }else {
-                result="Không tìm thấy";
-            }
+        String result= mapDictionary.get(inputSearch);
+        if (result==null){
+            result="Không tìm thấy";
         }
         return result;
     }

@@ -17,11 +17,13 @@
     <div class="row justify-content-center">
         <div class="col-auto">
             <h1 class="my-5">Từ điển Anh-Việt</h1>
-            <div >
-                <form action="/simple_dictionary" class="d-flex justify-content-between">
+            <div>
+                <form action="/dictionary" class="d-flex justify-content-between">
                     <input class="form-control" type="text" name="search" placeholder="Nhập từ cần tra" style="width: 70%">
                     <button type="submit" class="btn btn-info">Dịch</button>
                 </form>
+            </div>
+            <div>
                 <h3>${result}</h3>
             </div>
         </div>

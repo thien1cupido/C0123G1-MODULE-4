@@ -13,12 +13,12 @@ public class SimpleDictionaryController {
     private ISimpleDictionaryService simpleDictionaryService;
 
     @GetMapping("/")
-    public String dictionaryController() {
+    public String getDictionaryController() {
         return "simple_dictionary";
     }
 
-    @GetMapping("/simple_dictionary")
-    public String dictionaryController(Model model, @RequestParam(value = "search") String inputSearch) {
+    @GetMapping("/dictionary")
+    public String displayWordsToLookUp(Model model, @RequestParam(value = "search") String inputSearch) {
         String string = simpleDictionaryService.getResultSearch(inputSearch);
         model.addAttribute("result", string);
         return "simple_dictionary";

@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Repository
-public class SimpleDictionaryRepository implements ISimpleDictionaryRepository {
+public class SimpleDictionaryRepositoryImpl implements ISimpleDictionaryRepository {
     private static Map<String,String> dictionaryRepository =new HashMap<>();
     static {
         dictionaryRepository.put("hello","Xin chào");

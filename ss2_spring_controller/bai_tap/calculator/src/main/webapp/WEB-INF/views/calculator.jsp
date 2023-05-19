@@ -29,8 +29,8 @@
             <form action="/calculate">
                 <div>
                     <div>
-                        <input type="number" name="number1" placeholder="Enter number">
-                        <input type="number" name="number2" placeholder="Enter number" class="ms-2">
+                        <input required type="number" name="number1" placeholder="Enter number">
+                        <input required type="number" name="number2" placeholder="Enter number" class="ms-2">
                     </div>
                 </div>
                 <div class="mt-3">
@@ -40,7 +40,7 @@
                     <button type="submit" class="ms-2" name="operation" value="Division">Division(/)</button>
                 </div>
             </form>
-            <div>
+            <div style="font-weight: bold">
                 <p>${result}</p>
             </div>
         </div>

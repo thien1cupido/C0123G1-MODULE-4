@@ -17,19 +17,21 @@
     <h1 style="justify-content: center;text-align: center">Chuyển đổi tiền tệ</h1>
 </div>
 <div class="container" >
-    <div class="mb-3" style="display: flex;justify-content: center">
-        <form action="/tien_te" style="width: 50%">
-            <label class="form-label">Nhập giá tiền (USD)</label>
-            <input class="form-control" type="number" name="inputMoney" placeholder="Nhập giá tiền"><br>
-            <label class="form-label">Tỉ giá</label>
-            <input  class="form-control" type="number" name="exchangeRate" placeholder="Nhập tỉ giá">
-            <div class="mt-4" style="display: flex;justify-content: center">
-                <button class="btn btn-success" type="submit">Chuyển đổi</button>
-            </div>
-            <div class="mt-4 d-flex justify-content-center">
-                <h3 style="color: blue">${result}</h3>
-            </div>
-        </form>
+    <div class="mb-3" >
+        <div  class="d-flex justify-content-center" >
+            <form action="/currency" style="width: 50%">
+                <label class="form-label">Nhập giá tiền (USD)</label>
+                <input class="form-control" type="number" name="inputMoney" placeholder="Nhập giá tiền"><br>
+                <label class="form-label">Tỉ giá</label>
+                <input  class="form-control" type="number" name="exchangeRate" placeholder="Nhập tỉ giá">
+                <div class="mt-4" style="display: flex;justify-content: center">
+                    <button class="btn btn-success" type="submit">Chuyển đổi</button>
+                </div>
+            </form>
+        </div>
+        <div class="mt-3 d-flex justify-content-center">
+            <h3 style="color: blue">${result}</h3>
+        </div>
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"

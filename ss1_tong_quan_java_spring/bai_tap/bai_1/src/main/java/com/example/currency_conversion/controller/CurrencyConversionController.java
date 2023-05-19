@@ -18,7 +18,7 @@ public class CurrencyConversionController {
     private ICurrencyConversionService conversionMoney;
 
     @GetMapping("/currency")
-    public String getCurrencyConversion(Model model, @RequestParam(value = "inputMoney",defaultValue = "0") Integer inputMoney, @RequestParam(value = "exchangeRate",defaultValue = "0") Integer exchangeRate) {
+    public String displaygetCurrencyConversion(Model model, @RequestParam(value = "inputMoney",defaultValue = "0") Integer inputMoney, @RequestParam(value = "exchangeRate",defaultValue = "0") Integer exchangeRate) {
         int result = conversionMoney.conversionMoney(inputMoney,exchangeRate);
         model.addAttribute("result", "Kết quả: "+result+"VNĐ");
         return "currency_conversion";

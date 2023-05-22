@@ -29,8 +29,8 @@
             <form action="/calculate">
                 <div>
                     <div>
-                        <input required type="number" name="number1" placeholder="Enter number">
-                        <input required type="number" name="number2" placeholder="Enter number" class="ms-2">
+                        <input type="number" name="number1" placeholder="Enter number">
+                        <input type="number" name="number2" placeholder="Enter number" class="ms-2">
                     </div>
                 </div>
                 <div class="mt-3">

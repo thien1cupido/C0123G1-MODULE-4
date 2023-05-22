@@ -15,41 +15,37 @@
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <body>
 <div class="container-fluid">
-    <div class="d-flex justify-content-center">
-        <h1>Settings</h1>
-    </div>
-    <div class="row">
-        <div class="col-12">
-            <div class="d-flex justify-content-center">
-                <form:form action="/updateConfig" method="post" modelAttribute="configEmail">
-                    <div class="d-flex">
-                        <p>Languages: </p> <form:select path="languages" class="ms-4">
+    <h1>Settings</h1>
+    <div>
+        <form:form action="/updateConfig" method="post" modelAttribute="configEmail">
+            <div class="row">
+                <div class="col-2">
+                    <h5>Languages: </h5>
+                    <h5>Page Size: </h5>
+                    <h5>Spams filter:</h5>
+                    <h5>Signature:</h5>
+                </div>
+                <div class="col-3">
+                    <form:select path="languages">
                         <form:options items="${language}"/>
-                    </form:select>
+                    </form:select> <br>
+                    <div class="mt-2">
+                        Show <form:select path="pageSize">
+                        <form:options items="${pageSizes}"/>
+                    </form:select> emails per page
                     </div>
-                    <div class="d-flex">
-                        <p>Page Size: </p>
-                        <div class="ms-4">
-                            Show <form:select path="pageSize">
-                            <form:options items="${pageSizes}"/>
-                        </form:select>
-                            <p>emails per page</p>
-                        </div>
+                    <div class=" mt-2">
+                        <form:checkbox path="spamsFilter"/> Enable spams filter
                     </div>
-                    <div class="d-flex">
-                        <p>Spams filter:</p> <form:checkbox path="spamsFilter"/>Enable spams filter
-                    </div>
-                    <div class="d-flex">
-                        <p>Signature:</p>
-                        <form:textarea path="signature"/>
-                    </div>
-                    <div class="d-flex">
+                    <form:textarea path="signature" class="mt-2" cols="40" rows="8"/>
+                    <div class="d-flex mt-3">
                         <button class="btn btn-info" type="submit">Update</button>
-                        <button>Cancel</button>
+                        <button type="button" class="ms-3 btn btn-light" style="border: black solid 1px">Cancel</button>
                     </div>
-                </form:form>
+                </div>
+                <div class="col-7"></div>
             </div>
-        </div>
+        </form:form>
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"

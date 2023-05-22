@@ -13,36 +13,31 @@
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <style>
-    span{
+    span {
         margin-left: 5px;
 
     }
 </style>
 <body>
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-6">
-            <div class="card">
-                <div class="card-body">
-                    <div>
-                        <h1>Updated Config Email</h1>
+    <div class="col-6 ">
+        <div class="card">
+            <div class="card-body">
+                <h1>Updated Config Email</h1>
+                <div class="row">
+                    <div class="col-3">
+                        <h5>Languages:</h5>
+                        <h5>Page size:</h5>
+                        <h5>Spams filter:</h5>
+                        <h5>Signature:</h5>
                     </div>
-                    <div>
-                        <div class="d-flex">
-                            <h4>Languages:</h4><p>${configEmail.languages}</p>
-                        </div>
-                        <div class="d-flex">
-                            <h4>Page size:</h4><p>${configEmail.pageSize}</p>
-                        </div>
-                        <div class="d-flex">
-                            <h4>Spams filter:</h4><p>${configEmail.spamsFilter}</p>
-                        </div>
-                        <div class="d-flex">
-                            <h4>Signature:</h4><p>${configEmail.signature}</p>
-                        </div>
+                    <div class="col-2">
+                        <p class="mb-2">${configEmail.languages}</p>
+                        <p class="mb-2">${configEmail.pageSize}</p>
+                        <p class="mb-2">${configEmail.spamsFilter}</p>
+                        <p class="m-0">${configEmail.signature}</p>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

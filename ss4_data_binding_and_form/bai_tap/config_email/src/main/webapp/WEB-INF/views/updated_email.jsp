@@ -6,18 +6,13 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <title>Updated config</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
-<style>
-    span {
-        margin-left: 5px;
-
-    }
-</style>
 <body>
 <div class="container-fluid">
     <div class="col-6 ">
@@ -34,7 +29,12 @@
                     <div class="col-2">
                         <p class="mb-2">${configEmail.languages}</p>
                         <p class="mb-2">${configEmail.pageSize}</p>
-                        <p class="mb-2">${configEmail.spamsFilter}</p>
+                        <c:if test="${configEmail.spamsFilter}">
+                        <p class="mb-2">Yes</p>
+                        </c:if>
+                        <c:if test="${configEmail.spamsFilter==false}">
+                            <p class="mb-2">No</p>
+                        </c:if>
                         <p class="m-0">${configEmail.signature}</p>
                     </div>
                 </div>

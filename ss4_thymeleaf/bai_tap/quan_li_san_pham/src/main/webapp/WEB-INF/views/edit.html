@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Product</title>
+</head>
+<body>
+<h1>Edit product</h1>
+<p th:if="${check}">Thành công</p>
+<p th:if="${check==false}">Thất bại</p>
+<a th:href="@{/}">Back</a>
+<div>
+    <form action="/editProduct" th:object="${product}" method="post">
+        <div>
+            <label>ID</label>
+            <input disabled type="number" th:field="*{id}">
+            <input hidden type="number" th:field="*{id}">
+        </div>
+        <div>
+            <label>Name</label>
+            <input type="text" th:field="*{name}">
+        </div>
+        <div>
+            <label>Price</label>
+            <input type="number" th:field="*{price}">
+        </div>
+        <div>
+            <label>Description</label>
+            <input type="text" th:field="*{description}">
+        </div>
+        <div>
+            <label>Producer</label>
+            <input type="text" name="producer" th:value="*{producer}" th:field="*{producer}">
+        </div>
+        <button>Edit</button>
+    </form>
+</div>
+</body>
+</html>

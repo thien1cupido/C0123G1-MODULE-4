@@ -13,9 +13,10 @@ import java.util.List;
 public class ProductServiceImpl implements IProductService {
     @Autowired
     private IProductRepository productRepository;
+
     @Override
     public List<Product> getAllProduct() {
-        List<Product>productList=productRepository.getAllProduct();
+        List<Product> productList = productRepository.getAllProduct();
         return productList;
     }
 
@@ -26,9 +27,9 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public Product findProductById(Integer id) {
-        List<Product>productList=productRepository.getAllProduct();
-        for (Product product:productList) {
-            if (product.getId()==id){
+        List<Product> productList = productRepository.getAllProduct();
+        for (Product product : productList) {
+            if (product.getId() == id) {
                 return product;
             }
         }
@@ -42,9 +43,9 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public boolean edit(Product product) {
-        List<Product>productList=productRepository.getAllProduct();
-        for (Product product1:productList) {
-            if (product1.getId()==product.getId()){
+        List<Product> productList = productRepository.getAllProduct();
+        for (Product product1 : productList) {
+            if (product1.getId() == product.getId()) {
                 productRepository.deleteProductById(product1.getId());
                 productRepository.saveProduct(product);
                 return true;
@@ -55,10 +56,10 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public List<Product> searchProductByName(String name) {
-        List<Product>productList=new ArrayList<>();
-        List<Product>productList1=productRepository.getAllProduct();
-        for (Product product1:productList1) {
-            if (product1.getName().equalsIgnoreCase(name)){
+        List<Product> productList = new ArrayList<>();
+        List<Product> productList1 = productRepository.getAllProduct();
+        for (Product product1 : productList1) {
+            if (product1.getName().equalsIgnoreCase(name)) {
                 productList.add(product1);
             }
         }

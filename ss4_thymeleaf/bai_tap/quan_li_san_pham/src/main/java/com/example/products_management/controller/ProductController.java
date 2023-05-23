@@ -56,15 +56,16 @@ public class ProductController {
     }
 
     @PostMapping("/delete")
-    public String deleteProduct(@RequestParam("id")Integer id,RedirectAttributes redirectAttributes){
-        Boolean check =productService.deleteProductById(id);
-        redirectAttributes.addFlashAttribute("check",check);
+    public String deleteProduct(@RequestParam("id") Integer id, RedirectAttributes redirectAttributes) {
+        Boolean check = productService.deleteProductById(id);
+        redirectAttributes.addFlashAttribute("check", check);
         return "redirect:/";
     }
+
     @GetMapping("/search")
-    public String searchProduct(Model model,@RequestParam("nameSearch")String name){
-        List<Product> productList=productService.searchProductByName(name);
-        model.addAttribute("productList",productList);
+    public String searchProduct(Model model, @RequestParam("nameSearch") String name) {
+        List<Product> productList = productService.searchProductByName(name);
+        model.addAttribute("productList", productList);
         return "list";
     }
 }

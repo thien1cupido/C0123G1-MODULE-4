@@ -7,22 +7,31 @@
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <body>
-<h1>Product List</h1>
-<p th:if="${check}">Thành công</p>
-<p th:if="${check==false}">Thất bại</p>
-<a th:href="@{/create}">
-    <button>Create</button>
-</a>
-<div>
-    <form th:action="@{/search}">
-        <input type="text" name="nameSearch" placeholder="Enter name">
-        <button>Search</button>
-    </form>
-</div>
+<nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: orange;height: 80px">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarSupportedContent">
+            <div>
+                <a th:href="@{/create}">
+                    <button class="btn btn-success">Add new product</button>
+                </a>
+            </div>
+            <div>
+                <form th:action="@{/search}" class="d-flex">
+                    <input type="search" class="form-control me-2" aria-label="Search"
+                           name="nameSearch" placeholder="Enter the name to search">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</nav>
 <div class="container-fluid">
     <div class="row">
         <div class="col-2"></div>
         <div class="col-8">
+            <div class="d-flex justify-content-center my-5">
+                <h1>Product List</h1>
+            </div>
             <table class="table table-striped table-hover">
                 <tr>
                     <th>ID</th>
@@ -47,7 +56,8 @@
                                 th:onclick="'deleteProduct(\'' + ${product.id} + '\', \'' + ${product.name} + '\')'"></button>
                         <button class="btn btn-info" type="button" data-bs-toggle="modal"
                                 data-bs-target="#detailModal" th:text="Detail"
-                                th:onclick="'detailProduct(\'' + ${product.id} + '\', \'' + ${product.name} + '\', \'' + ${product.price} + '\', \'' + ${product.description} + '\', \'' + ${product.producer} + '\')'"></button>
+                                th:onclick="'detailProduct(\'' + ${product.id} + '\', \'' + ${product.name} + '\', \'' + ${product.price} +
+                                 '\', \'' + ${product.description} + '\', \'' + ${product.producer} + '\')'"></button>
                     </td>
                 </tr>
             </table>
@@ -64,16 +74,17 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form th:action="@{/delete}" method="post">
-            <div class="modal-body">
-                <input hidden type="number" id="id" name="id">
-                <span>Do you want to delete </span><span id="nameProduct" style="color: red"></span><span> products?</span>
-            </div>
-            <div class="modal-footer">
-                <div>
-                    <button type="button" class="btn btn-light">No</button>
-                    <button type="submit" class="btn btn-danger">Yes</button>
+                <div class="modal-body">
+                    <input hidden type="number" id="id" name="id">
+                    <span>Do you want to delete </span><span id="nameProduct"
+                                                             style="color: red"></span><span> products?</span>
                 </div>
-            </div>
+                <div class="modal-footer">
+                    <div>
+                        <button type="button" class="btn btn-light me-3">No</button>
+                        <button type="submit" class="btn btn-danger">Yes</button>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
@@ -98,6 +109,28 @@
         </div>
     </div>
 </div>
+<!--Notice delete-->
+<div class="modal fade" id="noticeDeleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex justify-content-center">
+                    <div th:if="${check}">
+                        <h5 style="color: green">Deleted successfully</h5>
+                    </div>
+                    <div th:if="${check==false}">
+                        <h5 style="color: red">Deleted failed</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="height: 50px">
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     function detailProduct(id, name, price, description, producer) {
         document.getElementById("idProduct").innerText = id;
@@ -106,7 +139,8 @@
         document.getElementById("description").innerText = description;
         document.getElementById("producer").innerText = producer;
     }
-    function deleteProduct(id,name){
+
+    function deleteProduct(id, name) {
         document.getElementById("id").value = id;
         document.getElementById("nameProduct").innerText = name;
     }
@@ -114,5 +148,11 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
+<div th:if="${check != null}">
+    <script>
+        let deleteResultModal = new bootstrap.Modal(document.getElementById('noticeDeleteModal'));
+        deleteResultModal.show();
+    </script>
+</div>
 </body>
 </html>

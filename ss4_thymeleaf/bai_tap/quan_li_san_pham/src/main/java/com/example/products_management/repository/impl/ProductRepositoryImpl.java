@@ -12,12 +12,12 @@ public class ProductRepositoryImpl implements IProductRepository {
     private static List<Product> productList = new ArrayList<>();
 
     static {
-        productList.add(new Product(1, "Iphone 4", 400, "Hàng cũ", "Apple"));
-        productList.add(new Product(2, "Iphone 5", 500, "Hàng cũ", "Apple"));
-        productList.add(new Product(3, "Iphone 6", 600, "Hàng cũ", "Apple"));
-        productList.add(new Product(4, "Samsung J5", 600, "Hàng cũ", "Samsung"));
-        productList.add(new Product(5, "Oppo Neo 9", 600, "Hàng cũ", "Oppo"));
-        productList.add(new Product(6, "Iphone 14", 2000, "Hàng mới", "Apple"));
+        productList.add(new Product(1, "Iphone 4", 400, "Secondhand goods", "Apple"));
+        productList.add(new Product(2, "Iphone 5", 500, "Secondhand goods", "Apple"));
+        productList.add(new Product(3, "Iphone 6", 600, "Secondhand goods", "Apple"));
+        productList.add(new Product(4, "Samsung J5", 600, "Secondhand goods", "Samsung"));
+        productList.add(new Product(5, "Oppo Neo 9", 600, "Secondhand goods", "Oppo"));
+        productList.add(new Product(6, "Iphone 14", 2000, "new products", "Apple"));
     }
 
     @Override

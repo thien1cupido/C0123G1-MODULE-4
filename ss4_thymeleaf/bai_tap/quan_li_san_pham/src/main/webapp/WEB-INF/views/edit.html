@@ -18,10 +18,41 @@
             <div class="my-4 d-flex justify-content-center">
                 <h1>Edit product</h1>
             </div>
+<!--            <form th:action="@{/editProduct}" th:object="${product}" method="post">-->
+<!--                <div>-->
+<!--                    <label>ID</label>-->
+<!--                    <input disabled class="form-control" type="number" th:field="*{id}">-->
+<!--                    <input hidden class="form-control" type="number" th:value="${products.id}" th:field="*{id}">-->
+<!--                </div>-->
+<!--                <div class="mt-3">-->
+<!--                    <label>Name</label>-->
+<!--                    <input class="form-control" type="text" th:value="${products.name}" th:field="*{name}">-->
+<!--                </div>-->
+<!--                <div class="mt-3">-->
+<!--                    <label>Price</label>-->
+<!--                    <input class="form-control" type="number" th:value="${products.price}" th:field="*{price}">-->
+<!--                </div>-->
+<!--                <div class="mt-3">-->
+<!--                    <label>Description</label>-->
+<!--                    <input class="form-control" type="text" th:value="${products.description}" th:field="*{description}">-->
+<!--                </div>-->
+<!--                <div class="mt-3">-->
+<!--                    <label>Producer</label>-->
+<!--                    <input class="form-control" type="text" name="producer" th:value="${products.producer}" th:field="*{producer}">-->
+<!--                </div>-->
+<!--                <div class="d-flex justify-content-around mt-5">-->
+<!--                    <button type="submit" class="btn btn-success">Edit</button>-->
+<!--                    <a th:href="@{/}">-->
+<!--                        <button type="button" class="btn btn-dark">Back</button>-->
+<!--                    </a>-->
+<!--                </div>-->
+<!--            </form>-->
+
             <form th:action="@{/editProduct}" th:object="${product}" method="post">
                 <div>
                     <label>ID</label>
-                    <input class="form-control" type="number" th:field="*{id}">
+                    <input disabled class="form-control" type="number" th:field="*{id}">
+                    <input hidden class="form-control" type="number" th:value="${product.id}" th:field="*{id}">
                 </div>
                 <div class="mt-3">
                     <label>Name</label>
@@ -37,7 +68,7 @@
                 </div>
                 <div class="mt-3">
                     <label>Producer</label>
-                    <input class="form-control" type="text" name="producer" th:field="*{producer}">
+                    <input class="form-control" type="text" th:field="*{producer}">
                 </div>
                 <div class="d-flex justify-content-around mt-5">
                     <button type="submit" class="btn btn-success">Edit</button>

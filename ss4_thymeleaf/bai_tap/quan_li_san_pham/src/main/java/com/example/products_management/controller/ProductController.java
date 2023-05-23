@@ -41,26 +41,12 @@ public class ProductController {
         return "redirect:/create";
     }
 
-//    @GetMapping("/edit/{id}")
-//    public String sendProduct(Model model, @PathVariable("id") Integer id) {
-//        Product product = productService.findProductById(id);
-//        model.addAttribute("product", product);
-//        return "edit";
-//    }
-//
-//    @PostMapping("/editProduct")
-//    public String editProduct(@ModelAttribute("product") Product product,Model model ,RedirectAttributes redirectAttributes) {
-//        Boolean check = productService.edit(product);
-//        redirectAttributes.addFlashAttribute("check", check);
-//        model.addAttribute("product", product);
-//        return "redirect:/edit";
-//    }
-@GetMapping("/edit/{id}")
-public String sendProduct(Model model, @PathVariable("id") Integer id) {
-    Product product = productService.findProductById(id);
-    model.addAttribute("product", product);
-    return "edit";
-}
+    @GetMapping("/edit/{id}")
+    public String sendProduct(Model model, @PathVariable("id") Integer id) {
+        Product product = productService.findProductById(id);
+        model.addAttribute("product", product);
+        return "edit";
+    }
 
     @PostMapping("/editProduct")
     public String editProduct(@ModelAttribute("product") Product product, RedirectAttributes redirectAttributes) {

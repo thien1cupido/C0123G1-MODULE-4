@@ -14,7 +14,6 @@
         <property name="show_sql">true</property>
         <!--        Nếu như có bất kì sự thay đổi nào ở entity -> thay đổi trong database-->
         <property name="hbm2ddl.auto">update</property>
-
         <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
         <!--        Mapping với entity-->
         <mapping class="com.example.products_management.model.Product"/>

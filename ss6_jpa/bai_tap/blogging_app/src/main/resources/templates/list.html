@@ -2,9 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Product List</title>
-    <link rel="stylesheet" href="/bootstrap520/css/bootstrap.css"/>
-    <link rel="stylesheet" href="datatables/css/dataTables.bootstrap5.min.css"/>
+    <title>Blog List</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
@@ -14,15 +12,20 @@
         <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarSupportedContent">
             <div>
                 <a th:href="@{/create}">
-                    <button class="btn btn-success">Add new product</button>
+                    <button class="btn btn-success">Add new blog</button>
                 </a>
             </div>
             <div>
                 <form th:action="@{/search}" class="d-flex">
-                    <input type="search" class="form-control me-2" aria-label="Search"
-                           name="nameSearch" placeholder="Enter the name to search">
+                    <input type="search" th:value="${titles}" class="form-control me-2" aria-label="Search"
+                           name="title" placeholder="Enter the title">
+                    <input type="search" th:value="${authors}"  class="form-control me-2" aria-label="Search"
+                           name="author" placeholder="Enter the author">
                     <button class="btn btn-primary" type="submit">Search</button>
                 </form>
+                <a th:href="@{/}">
+                    <button class="btn btn-dark">Return list</button>
+                </a>
             </div>
         </div>
     </div>
@@ -32,40 +35,36 @@
         <div class="col-2"></div>
         <div class="col-8">
             <div class="d-flex justify-content-center my-5">
-                <h1>Product List</h1>
+                <h1>Blog List</h1>
             </div>
             <table class="table table-striped table-hover" id="tableProduct">
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Description</th>
-                    <th>Producer</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Create At</th>
+                    <th>Update At</th>
                     <th>Operation</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="product:${productList}">
-                    <td th:text="${product.id}"></td>
-                    <td th:text="${product.name}"></td>
-                    <td th:text="${product.price}"></td>
-                    <td th:text="${product.description}"></td>
-                    <td th:text="${product.producer}"></td>
+                <tr th:each="blog:${blogList}">
+                    <td th:text="${blog.id}"></td>
+                    <td th:text="${blog.title}"></td>
+                    <td th:text="${blog.author}"></td>
+                    <td th:text="${blog.createTime}"></td>
+                    <td th:text="${blog.updateTime}"></td>
                     <td>
-                        <a style="text-decoration: none" th:href="@{/edit/{id}(id=${product.id})}">
+                        <a style="text-decoration: none" th:href="@{/edit/{id}(id=${blog.id})}">
                             <button class="btn btn-warning" type="button">Edit</button>
                         </a>
-                        <!--                        <button class="btn btn-danger" type="button" data-bs-toggle="modal"-->
-                        <!--                                data-bs-target="#deleteModal" th:text="Delete"-->
-                        <!--                                th:onclick="'deleteProduct(\'' + ${product.id} + '\', \'' + ${product.name} + '\')'"></button>-->
                         <button class="btn btn-danger" type="button" data-bs-toggle="modal"
                                 data-bs-target="#deleteModal" th:text="Delete"
-                                th:attr="onclick=|deleteProduct(${product.id},'${product.name}')|"></button>
-                        <button class="btn btn-info" type="button" data-bs-toggle="modal"
-                                data-bs-target="#detailModal" th:text="Detail"
-                                th:onclick="'detailProduct(\'' + ${product.id} + '\', \'' + ${product.name} + '\', \'' + ${product.price} +
-                                                       '\', \'' + ${product.description} + '\', \'' + ${product.producer} + '\')'"></button>
+                                th:attr="onclick=|deleteBlog(${blog.id},'${blog.title}')|"></button>
+                        <a style="text-decoration: none" th:href="@{/detail/{id}(id=${blog.id})}">
+                        <button class="btn btn-info">Detail</button>
+                        </a>
                     </td>
                 </tr>
                 </tbody>
@@ -86,7 +85,7 @@
                 <div class="modal-body">
                     <input hidden type="number" id="id" name="id">
                     <span>Do you want to delete </span><span id="nameProduct"
-                                                             style="color: red"></span><span> products?</span>
+                                                             style="color: red"></span><span> blog?</span>
                 </div>
                 <div class="modal-footer">
                     <div>
@@ -95,26 +94,6 @@
                     </div>
                 </div>
             </form>
-        </div>
-    </div>
-</div>
-<!--Modal detail-->
-<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel1">Detail product</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>ID: <span id="idProduct"></span></p>
-                <p>Product Name: <span id="name"></span></p>
-                <p>Price: <span id="price"></span></p>
-                <p>Description: <span id="description"></span></p>
-                <p>Producer: <span id="producer"></span></p>
-            </div>
-            <div class="modal-footer">
-            </div>
         </div>
     </div>
 </div>
@@ -140,31 +119,11 @@
         </div>
     </div>
 </div>
-<script>0
-    function detailProduct(id,name,price,description,producer) {
-        document.getElementById("idProduct").innerText = id;
-        document.getElementById("name").innerText = name;
-        document.getElementById("price").innerText = price;
-        document.getElementById("description").innerText =description;
-        document.getElementById("producer").innerText = producer;
-    }
-
-    function deleteProduct(id, name) {
+<script>
+    function deleteBlog(id, name) {
         document.getElementById("id").value = id;
         document.getElementById("nameProduct").innerText = name;
     }
-</script>
-<script src="jquery/jquery-3.5.1.min.js"></script>
-<script src="datatables/js/jquery.dataTables.min.js"></script>
-<script src="datatables/js/dataTables.bootstrap5.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $('#tableProduct').dataTable({
-            "dom": 'lrtip',
-            "lengthChange": false,
-            "pageLength": 10
-        });
-    });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"

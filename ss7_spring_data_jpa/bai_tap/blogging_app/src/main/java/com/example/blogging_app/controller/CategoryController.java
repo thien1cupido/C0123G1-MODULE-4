@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.List;
 
 @Controller
 @RequestMapping("/category")
@@ -21,67 +20,49 @@ public class CategoryController {
     private ICategoryService iCategoryService;
 
     @GetMapping("")
-    public ModelAndView displayBlogList(@RequestParam(value = "page", defaultValue = "0") int page) {
+    public ModelAndView displayCategoryList(@RequestParam(value = "page", defaultValue = "0") int page) {
         return new ModelAndView("category/list", "categoryList", iCategoryService.findAllCategory(page));
     }
 
     @GetMapping("/create")
-    public String redirectCreateBlog(Model model) {
+    public String redirectCreateCategory(Model model) {
         model.addAttribute("category", new Blog());
         return "category/create";
     }
 
     @PostMapping("/createBlog")
-    public String createBlog(@ModelAttribute("category") Category category, RedirectAttributes redirectAttributes) {
+    public String createCategory(@ModelAttribute("category") Category category, RedirectAttributes redirectAttributes) {
         Boolean check = iCategoryService.addNewCategory(category);
         redirectAttributes.addFlashAttribute("check", check);
-        return "redirect:/blog/create";
+        return "redirect:/category/create";
     }
 
     @GetMapping("/edit")
-    public String showBlogUpdatePage(Model model, @RequestParam("category") Category category) {
+    public String showCategoryUpdatePage(Model model, @RequestParam("category") Category category) {
         model.addAttribute("category", category);
         return "category/edit";
     }
 
     @GetMapping("/edit/{id}")
-    public String sendBlog(Model model, @PathVariable("id") Integer id) {
-        Blog blog = blogService.findBlogById(id);
-        List<Category> categoryList = categoryService.findAllCategory();
-        model.addAttribute("category", categoryList);
-        model.addAttribute("blog", blog);
-        return "blog/edit";
+    public String sendCategory(Model model, @PathVariable("id") Integer id) {
+        Category category = iCategoryService.findCategoryById(id);
+        model.addAttribute("category", category);
+        return "category/edit";
     }
 
-    @PostMapping("/editBlog")
-    public String editBlog(@ModelAttribute("blog") Blog blog, RedirectAttributes redirectAttributes) {
-        Boolean check = blogService.editBlog(blog);
+    @PostMapping("/editCategory")
+    public String editCategory(@ModelAttribute("category") Category category, RedirectAttributes redirectAttributes) {
+        Boolean check = iCategoryService.editCategory(category);
         redirectAttributes.addFlashAttribute("check", check);
-        return "redirect:/blog/edit/" + blog.getId();
+        return "redirect:/category/edit/" + category.getIdCategory();
     }
 
     @PostMapping("/delete")
-    public String deleteBlog(@RequestParam("id") Integer id, RedirectAttributes redirectAttributes) {
-        Boolean check = blogService.deleteBlog(id);
+    public String deleteCategory(@RequestParam("id") Integer id, RedirectAttributes redirectAttributes) {
+        Boolean check = iCategoryService.deleteCategory(id);
         redirectAttributes.addFlashAttribute("check", check);
-        return "redirect:/blog";
+        return "redirect:/category";
     }
 
-    @GetMapping("/search")
-    public String searchBlog(@RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "title", defaultValue = "")
-    String title, String author, Model model) {
-        Page<Blog> blogList = blogService.searchBlog(title, author, page);
-        model.addAttribute("authors", author);
-        model.addAttribute("titles", title);
-        model.addAttribute("blogList", blogList);
-        return "blog/list";
-    }
-
-    @GetMapping("/detail/{id}")
-    public String showBlogDetail(@PathVariable Integer id, Model model) {
-        Blog blog = blogService.findBlogById(id);
-        model.addAttribute("blog", blog);
-        return "blog/detail";
-    }
 }
 

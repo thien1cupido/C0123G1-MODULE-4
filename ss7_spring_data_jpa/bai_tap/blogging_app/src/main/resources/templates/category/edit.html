@@ -18,7 +18,7 @@
             <div class="my-4 d-flex justify-content-center">
                 <h1>Edit blog</h1>
             </div>
-            <form th:action="@{/blog/editBlog}" th:object="${blog}" method="post">
+            <form th:action="@{/category/editCategory}" th:object="${blog}" method="post">
                 <div>
                     <label>ID</label>
                     <input disabled class="form-control" type="number" th:field="*{id}">

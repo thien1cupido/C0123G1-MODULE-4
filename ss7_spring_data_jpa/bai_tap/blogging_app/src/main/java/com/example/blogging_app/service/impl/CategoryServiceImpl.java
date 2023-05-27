@@ -17,7 +17,7 @@ public class CategoryServiceImpl implements ICategoryService {
 
     @Override
     public List<Category> findAllCategory() {
-        List<Category> categoryList=iCategoryRepository.findAll();
+        List<Category> categoryList=iCategoryRepository.findAllByStatusIsFalse();
         return categoryList;
     }
 

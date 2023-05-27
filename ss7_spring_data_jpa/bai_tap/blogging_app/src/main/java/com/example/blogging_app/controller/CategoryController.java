@@ -4,7 +4,6 @@ import com.example.blogging_app.model.Blog;
 import com.example.blogging_app.model.Category;
 import com.example.blogging_app.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +25,7 @@ public class CategoryController {
 
     @GetMapping("/create")
     public String redirectCreateCategory(Model model) {
-        model.addAttribute("category", new Blog());
+        model.addAttribute("category", new Category());
         return "category/create";
     }
 

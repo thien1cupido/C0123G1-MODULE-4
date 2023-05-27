@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 public interface IBlogRepository extends JpaRepository<Blog,Integer> {
-   @Query(value = "select b from Blog  b where b.status=true and b.title like concat('%',:title,'%') and b.author like concat('%',:author,'%' )")
+   @Query(value = "select b from Blog  b where b.status=false and b.title like concat('%',:title,'%') and b.author like concat('%',:author,'%' )")
    Page<Blog> searchBlog(Pageable pageable,@Param("title") String title,@Param("author")String author);
 
    Page<Blog> findAllByStatusIsFalseOrderByCreateTimeDesc(Pageable pageable);

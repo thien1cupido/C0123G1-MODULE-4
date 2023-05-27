@@ -1,8 +1,11 @@
 package com.example.blogging_app.model;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity(name = "category")
 @EntityListeners(AuditingEntityListener.class)
@@ -13,6 +16,13 @@ public class Category {
     private Integer idCategory;
     @Column(name = "name_category",columnDefinition = "VARCHAR(50)")
     private String name;
+    @Column(name = "create_time", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT now()")
+    @CreationTimestamp
+    private LocalDateTime createTime;
+
+    @Column(name = "update_time", columnDefinition = "TIMESTAMP DEFAULT now()")
+    @UpdateTimestamp
+    private LocalDateTime updateTime;
 
     public Category() {
     }
@@ -21,6 +31,30 @@ public class Category {
 
     public boolean getStatus() {
         return status;
+    }
+
+    public LocalDateTime getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(LocalDateTime createTime) {
+        this.createTime = createTime;
+    }
+
+    public LocalDateTime getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(LocalDateTime updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public void setStatus(Boolean status) {

@@ -18,33 +18,19 @@
             <div class="my-4 d-flex justify-content-center">
                 <h1>Edit blog</h1>
             </div>
-            <form th:action="@{/category/editCategory}" th:object="${blog}" method="post">
+            <form th:action="@{/category/editCategory}" th:object="${category}" method="post">
                 <div>
                     <label>ID</label>
-                    <input disabled class="form-control" type="number" th:field="*{id}">
-                    <input hidden class="form-control" type="number"  th:field="*{id}">
+                    <input disabled class="form-control" type="number" th:field="*{idCategory}">
+                    <input hidden class="form-control" type="number"  th:field="*{idCategory}">
                 </div>
                 <div class="mt-3">
-                    <label>Title</label>
-                    <input class="form-control" type="text" th:field="*{title}">
-                </div>
-                <div class="mt-3">
-                    <label>Content</label>
-                    <textarea class="form-control" th:field="*{content}" cols="20" rows="8"></textarea>
-                </div>
-                <div class="mt-3 d-flex">
-                    <label>Category</label>
-                    <select style="width: 10vw;text-align: center" class="form-control ms-3" th:field="*{category}">
-                        <option th:each="category: ${category}" th:text="${category.name}" th:value="${category.idCategory}"></option>
-                    </select>
-                </div>
-                <div class="mt-3">
-                    <label>Author</label>
-                    <input class="form-control" type="text" th:field="${blog.author}">
+                    <label>Category Name</label>
+                    <input class="form-control" type="text" th:field="*{name}">
                 </div>
                 <div class="d-flex justify-content-around mt-5">
                     <button type="submit" class="btn btn-success">Edit</button>
-                    <a th:href="@{/blog}">
+                    <a th:href="@{/category}">
                         <button type="button" class="btn btn-dark">Back</button>
                     </a>
                 </div>

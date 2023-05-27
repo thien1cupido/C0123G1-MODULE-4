@@ -68,12 +68,12 @@ public class BlogController {
     }
     @GetMapping("/search")
     public String searchBlog(@RequestParam(value = "page",defaultValue = "0")int page,@RequestParam(value = "title",defaultValue = "")
-    String title,String author,Model model){
+    String title,@RequestParam(value = "author",defaultValue = "") String author,Model model){
         Page<Blog> blogList=blogService.searchBlog(title,author,page);
         model.addAttribute("authors",author);
         model.addAttribute("titles",title);
         model.addAttribute("blogList",blogList);
-        return "blog/list";
+        return "/blog/list";
     }
     @GetMapping("/detail/{id}")
     public String showBlogDetail(@PathVariable Integer id,Model model){

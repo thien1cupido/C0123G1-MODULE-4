@@ -64,5 +64,4 @@ public class BlogServiceImpl implements IBlogService {
     public Page<Blog> searchBlog(String title,String author,Integer page) {
         return blogRepository.searchBlog(PageRequest.of(page,5),title,author);
     }
-
 }

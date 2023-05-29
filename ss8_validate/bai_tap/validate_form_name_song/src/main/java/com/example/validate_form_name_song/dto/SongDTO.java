@@ -7,6 +7,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 public class SongDTO implements Validator {
+    private Integer id;
     @Size(max=800,message = "Name cannot be longer than 800 characters")
     @NotBlank(message = "Can't be left blank")
     private String nameSong;
@@ -19,12 +20,21 @@ public class SongDTO implements Validator {
 
     public SongDTO() {
     }
-    public SongDTO(String nameSong, String nameSinger, String kindOfMusic) {
+
+    public SongDTO(Integer id, String nameSong, String nameSinger, String kindOfMusic) {
+        this.id = id;
         this.nameSong = nameSong;
         this.nameSinger = nameSinger;
         this.kindOfMusic = kindOfMusic;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getNameSong() {
         return nameSong;
@@ -58,9 +68,9 @@ public class SongDTO implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         SongDTO songDTO=(SongDTO) target;
-        String regexNameSong="^[A-Za-z0-9 ]{800}$";
-        String regexNameSinger="^[A-Za-z0-9 ]{300}$";
-        String regexKindOfSong="^[A-Za-z0-9, ]{1000}$";
+        String regexNameSong="^[\\p{L}\\p{Mn}\\p{Pd}\\s]{0,800}$";
+        String regexNameSinger="^[\\p{L}\\p{Mn}\\p{Pd}\\s]{0,300}$";
+        String regexKindOfSong="^[\\p{L}\\p{Mn}\\p{Pd}\\s,]{0,1000}$";
         if (!songDTO.nameSong.matches(regexNameSong)){
             errors.rejectValue("nameSong","","Does not contain special characters like @ ; , . = - + ,");
         }

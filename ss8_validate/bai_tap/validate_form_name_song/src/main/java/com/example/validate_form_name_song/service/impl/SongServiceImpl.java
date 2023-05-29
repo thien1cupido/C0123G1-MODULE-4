@@ -29,4 +29,20 @@ public class SongServiceImpl implements ISongService {
         }
         return true;
     }
+
+    @Override
+    public Song findBlogById(Integer id) {
+        return iSongRepository.findById(id).get();
+    }
+
+    @Override
+    public Boolean editSong(Song song) {
+        try {
+            iSongRepository.save(song);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
 }

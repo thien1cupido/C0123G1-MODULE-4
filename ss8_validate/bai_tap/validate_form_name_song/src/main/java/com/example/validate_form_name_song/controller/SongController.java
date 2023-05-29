@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -38,10 +36,33 @@ public class SongController {
             return "create";
         } else {
             Song song = new Song();
-            BeanUtils.copyProperties(songDTO,song);
-            Boolean check=iSongService.saveSong(song);
-            model.addAttribute("check",check);
+            BeanUtils.copyProperties(songDTO, song);
+            Boolean check = iSongService.saveSong(song);
+            model.addAttribute("check", check);
             return "create";
+        }
+    }
+
+
+    @GetMapping("/edit/{id}")
+    public String sendSong(Model model, @PathVariable("id") Integer id) {
+        Song song = iSongService.findBlogById(id);
+        SongDTO songDTO = new SongDTO();
+        BeanUtils.copyProperties(song, songDTO);
+        model.addAttribute("songDTO", songDTO);
+        return "update";
+    }
+
+    @PostMapping("/updateSong")
+    public String editSong(@Valid @ModelAttribute("songDTO") SongDTO songDTO, BindingResult bindingResult) {
+        new SongDTO().validate(songDTO, bindingResult);
+        if (bindingResult.hasFieldErrors()) {
+            return "update";
+        } else {
+            Song song = new Song();
+            BeanUtils.copyProperties(songDTO, song);
+            iSongService.editSong(song);
+            return "redirect:/edit/" + song.getId();
         }
     }
 }

@@ -7,11 +7,11 @@ public class Song {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "name_song",columnDefinition = "TEXT")
+    @Column(name = "name_song", columnDefinition = "TEXT")
     private String nameSong;
-    @Column(name = "name_singer",columnDefinition = "TEXT")
+    @Column(name = "name_singer", columnDefinition = "TEXT")
     private String nameSinger;
-    @Column(name = "kind_of_music",columnDefinition = "LONGTEXT")
+    @Column(name = "kind_of_music", columnDefinition = "LONGTEXT")
     private String kindOfMusic;
 
     public Song() {

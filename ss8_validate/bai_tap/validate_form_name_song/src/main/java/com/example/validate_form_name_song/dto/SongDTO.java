@@ -8,13 +8,13 @@ import javax.validation.constraints.Size;
 
 public class SongDTO implements Validator {
     private Integer id;
-    @Size(max=800,message = "Name cannot be longer than 800 characters")
+    @Size(max = 800, message = "Name cannot be longer than 800 characters")
     @NotBlank(message = "Can't be left blank")
     private String nameSong;
-    @Size(max=300,message = "Name cannot be longer than 300 characters")
+    @Size(max = 300, message = "Name cannot be longer than 300 characters")
     @NotBlank(message = "Can't be left blank")
     private String nameSinger;
-    @Size(max=1000,message = "Name cannot be longer than 1000 characters")
+    @Size(max = 1000, message = "Name cannot be longer than 1000 characters")
     @NotBlank(message = "Can't be left blank")
     private String kindOfMusic;
 
@@ -67,18 +67,18 @@ public class SongDTO implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-        SongDTO songDTO=(SongDTO) target;
-        String regexNameSong="^[\\p{L}\\p{Mn}\\p{Pd}\\s]{0,800}$";
-        String regexNameSinger="^[\\p{L}\\p{Mn}\\p{Pd}\\s]{0,300}$";
-        String regexKindOfSong="^[\\p{L}\\p{Mn}\\p{Pd}\\s,]{0,1000}$";
-        if (!songDTO.nameSong.matches(regexNameSong)){
-            errors.rejectValue("nameSong","","Does not contain special characters like @ ; , . = - + ,");
+        SongDTO songDTO = (SongDTO) target;
+        String regexNameSong = "^[\\p{L}\\p{Mn}\\p{Pd}\\s]{0,800}$";
+        String regexNameSinger = "^[\\p{L}\\p{Mn}\\p{Pd}\\s]{0,300}$";
+        String regexKindOfSong = "^[\\p{L}\\p{Mn}\\p{Pd}\\s,]{0,1000}$";
+        if (!songDTO.nameSong.matches(regexNameSong)) {
+            errors.rejectValue("nameSong", "", "Does not contain special characters like @ ; , . = - + ,");
         }
-        if (!songDTO.nameSong.matches(regexNameSinger)){
-            errors.rejectValue("nameSinger","","Does not contain special characters like @ ; , . = - + ,");
+        if (!songDTO.nameSong.matches(regexNameSinger)) {
+            errors.rejectValue("nameSinger", "", "Does not contain special characters like @ ; , . = - + ,");
         }
-        if (!songDTO.nameSong.matches(regexKindOfSong)){
-            errors.rejectValue("kindOfMusic","","Except for comma ',' and the remaining special characters are not allowed");
+        if (!songDTO.nameSong.matches(regexKindOfSong)) {
+            errors.rejectValue("kindOfMusic", "", "Except for comma ',' and the remaining special characters are not allowed");
         }
     }
 }

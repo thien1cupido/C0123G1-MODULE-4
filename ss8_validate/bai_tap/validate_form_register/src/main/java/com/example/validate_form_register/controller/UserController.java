@@ -12,8 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 @Controller
 public class UserController {
@@ -21,27 +20,24 @@ public class UserController {
     private IUserService iUserService;
 
     @GetMapping("")
-    public ModelAndView showList(){
-        return new ModelAndView("list","userList",iUserService.findAllUser());
-    }
-
-    @GetMapping("/create")
     public String createUser(Model model) {
-        model.addAttribute("userDTO", new UserDTO());
+        UserDTO userDTO = new UserDTO();
+        model.addAttribute("userDTO",userDTO);
         return "index";
     }
 
     @PostMapping("/save")
-    public String saveUser(@ModelAttribute @Validated User user, BindingResult bindingResult,
-                           RedirectAttributes redirectAttributes) {
-        new User().validate(user, bindingResult);
+    public String saveUser(@Validated @ModelAttribute("userDTO") UserDTO userDTO, BindingResult bindingResult, Model model) {
+        new UserDTO().validate(userDTO, bindingResult);
         if (bindingResult.hasFieldErrors()) {
             return "index";
         } else {
-            BeanUtils.copyProperties(user, new User());
-            Boolean check= iUserService.createUser(user);
-            redirectAttributes.addFlashAttribute("check", check);
+            User user = new User();
+            BeanUtils.copyProperties(userDTO, user);
+            Boolean check = iUserService.createUser(user);
+            model.addAttribute("user", user);
+            model.addAttribute("check", check);
+            return "result";
         }
-        return "redirect:/result";
     }
 }

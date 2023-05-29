@@ -19,7 +19,7 @@
         <div class="my-4 d-flex justify-content-center">
           <h1>Add new blog</h1>
         </div>
-        <form th:action="@{/blog/createBlog}" th:object="${blog}" method="post">
+        <form th:action="@{/createBlog}" th:object="${blog}" method="post">
           <div class="mt-3">
             <label>Title</label>
             <input class="form-control" required type="text" th:field="${blog.title}">
@@ -40,7 +40,7 @@
           </div>
           <div class="d-flex justify-content-around mt-5">
             <button type="submit" class="btn btn-success">Create</button>
-            <a th:href="@{/blog}">
+            <a th:href="@{/}">
               <button type="button" class="btn btn-dark">Back</button>
             </a>
           </div>

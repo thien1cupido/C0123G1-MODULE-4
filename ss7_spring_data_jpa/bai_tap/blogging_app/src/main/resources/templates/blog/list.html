@@ -34,7 +34,7 @@
                     <a class="category-item" th:href="@{/category}">Category</a>
                 </div>
                 <div>
-                    <form th:action="@{blog/search}" class="d-flex" method="get">
+                    <form th:action="@{/search}" class="d-flex" method="get">
                         <input type="search" th:value="${titles}" class="form-control me-3" aria-label="Search"
                                name="title" placeholder="Enter the title">
                         <input type="search" th:value="${authors}" class="form-control me-3" aria-label="Search"
@@ -54,7 +54,7 @@
             <div class="row">
                 <div class="d-flex justify-content-between">
                     <div style="display: flex; justify-content: center; align-items: center">
-                        <a th:href="@{/blog/create}">
+                        <a th:href="@{/create}">
                             <button class="btn btn-success">Add new blog</button>
                         </a>
                     </div>
@@ -62,7 +62,7 @@
                         <h1>Blog List</h1>
                     </div>
                     <div style="display: flex; justify-content: center; align-items: center">
-                        <a th:href="@{/blog}">
+                        <a th:href="@{/}">
                             <button class="btn btn-dark">Return list</button>
                         </a>
                     </div>
@@ -90,13 +90,13 @@
                         <td th:text="*{blog.createTime}"></td>
                         <td th:text="*{blog.updateTime}"></td>
                         <td>
-                            <a style="text-decoration: none" th:href="@{blog/edit/{id}(id=${blog.id})}">
+                            <a style="text-decoration: none" th:href="@{/edit/{id}(id=${blog.id})}">
                                 <button class="btn btn-warning" type="button">Edit</button>
                             </a>
                             <button class="btn btn-danger" type="button" data-bs-toggle="modal"
                                     data-bs-target="#deleteModal" th:text="Delete"
                                     th:attr="onclick=|deleteBlog(${blog.id},'${blog.title}')|"></button>
-                            <a style="text-decoration: none" th:href="@{blog/detail/{id}(id=${blog.id})}">
+                            <a style="text-decoration: none" th:href="@{/detail/{id}(id=${blog.id})}">
                                 <button class="btn btn-info">Detail</button>
                             </a>
                         </td>
@@ -104,16 +104,17 @@
                     </tbody>
                 </table>
                 <div>
-                    <div>
-                        <a th:href="@{blog(page=${blogList.number -1})}" th:if="${blogList.hasPrevious()}">
+                    <div th:if="">
+                        <a th:href="@{/(title=${titles})/(author=${authors})/(page=${blogList.number -1})}" th:if="${blogList.hasPrevious()}">
                             <button class="btn btn-primary">Previous</button>
                         </a>
                     </div>
-                    <!--                        <span th:each="pageNo: ${#numbers.sequence(0,blogList.getTotalPages()-1)}">-->
-                    <!--                            <button type="button" th:text="${pageNo}" th:href="@{/blog(page=${pageNo})}"></button>-->
-                    <!--                        </span>-->
+                    <span th:each="pageNo: ${#numbers.sequence(0,blogList.getTotalPages()-1)}">
+                                                <button type="button" th:text="${pageNo}"
+                                                        th:href="@{/page=${pageNo}}"></button>
+                                            </span>
                     <div>
-                        <a th:href="@{blog(page=${blogList.number +1})}" th:if="${blogList.hasNext()}">
+                        <a th:href="@{/(title=${titles},author=${authors})/(page=${blogList.number +1})}" th:if="${blogList.hasNext()}">
                             <button class="btn btn-primary">Next</button>
                         </a>
                     </div>
@@ -131,7 +132,7 @@
                 <h5 class="modal-title" id="exampleModalLabel2">Delete product</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form th:action="@{blog/delete}" method="post">
+            <form th:action="@{/delete}" method="post">
                 <div class="modal-body">
                     <input hidden type="number" id="id" name="id">
                     <span>Do you want to delete </span><span id="nameProduct"

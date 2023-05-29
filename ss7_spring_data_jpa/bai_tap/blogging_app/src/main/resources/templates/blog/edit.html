@@ -18,7 +18,7 @@
             <div class="my-4 d-flex justify-content-center">
                 <h1>Edit blog</h1>
             </div>
-            <form th:action="@{/blog/editBlog}" th:object="${blog}" method="post">
+            <form th:action="@{/editBlog}" th:object="${blog}" method="post">
                 <div>
                     <label>ID</label>
                     <input disabled class="form-control" type="number" th:field="*{id}">
@@ -44,7 +44,7 @@
                 </div>
                 <div class="d-flex justify-content-around mt-5">
                     <button type="submit" class="btn btn-success">Edit</button>
-                    <a th:href="@{/blog}">
+                    <a th:href="@{/}">
                         <button type="button" class="btn btn-dark">Back</button>
                     </a>
                 </div>

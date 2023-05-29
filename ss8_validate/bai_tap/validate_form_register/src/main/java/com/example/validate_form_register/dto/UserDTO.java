@@ -1,10 +1,8 @@
 package com.example.validate_form_register.dto;
-
 import org.hibernate.validator.constraints.Range;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -20,9 +18,10 @@ public class UserDTO implements Validator {
     @NotBlank(message = "Can't be left blank")
     private String pass;
     @NotBlank(message = "Can't be left blank")
+    private String confirmPass;
+    @NotBlank(message = "Can't be left blank")
     private String phoneNumber;
-
-    @Min(value = 18, message = "Age must be from 18")
+    @Range(min = 18,max = 150,message = "Age must be over 18")
     @NotNull(message = "Can't be left blank")
     private Integer age;
     @NotBlank(message = "Can't be left blank")
@@ -31,14 +30,23 @@ public class UserDTO implements Validator {
     public UserDTO() {
     }
 
-    public UserDTO(Integer id, String firstName, String lastName, String pass, String phoneNumber, Integer age, String email) {
+    public UserDTO(Integer id, String firstName, String lastName, String pass, String confirmPass, String phoneNumber, Integer age, String email) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.pass = pass;
+        this.confirmPass = confirmPass;
         this.phoneNumber = phoneNumber;
         this.age = age;
         this.email = email;
+    }
+
+    public String getConfirmPass() {
+        return confirmPass;
+    }
+
+    public void setConfirmPass(String confirmPass) {
+        this.confirmPass = confirmPass;
     }
 
     public Integer getId() {
@@ -108,7 +116,7 @@ public class UserDTO implements Validator {
         String regexPhoneNumber = "^((\\+84)|0)[0-9]{9,10}$";
         String regexEmail = "^[a-z]\\w{5,}\\@[a-z]{3,5}\\.[a-z]{2,5}$";
         if (!userDTO.phoneNumber.matches(regexPhoneNumber)) {
-            errors.rejectValue("phoneNumber", "", "Phone numbers start at 0 and have 10 – 11 numbers");
+            errors.rejectValue("phoneNumber", "", "Phone numbers start at 0 or +84 and have 10 – 11 numbers");
         }
         if (!userDTO.email.matches(regexEmail)) {
             errors.rejectValue("email", "", "Email must have '@' and end in '.com'");

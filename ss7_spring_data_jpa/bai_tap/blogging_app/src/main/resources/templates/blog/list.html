@@ -33,6 +33,9 @@
                 <div class="category">
                     <a class="category-item" th:href="@{/category}">Category</a>
                 </div>
+<!--                <div th:if="${statusPage==true}">-->
+
+<!--                </div>-->
                 <div>
                     <form th:action="@{/search}" class="d-flex" method="get">
                         <input type="search" th:value="${titles}" class="form-control me-3" aria-label="Search"
@@ -103,22 +106,44 @@
                     </tr>
                     </tbody>
                 </table>
-                <div>
-                    <div th:if="">
-                        <a th:href="@{/(title=${titles})/(author=${authors})/(page=${blogList.number -1})}" th:if="${blogList.hasPrevious()}">
-                            <button class="btn btn-primary">Previous</button>
-                        </a>
-                    </div>
-                    <span th:each="pageNo: ${#numbers.sequence(0,blogList.getTotalPages()-1)}">
-                                                <button type="button" th:text="${pageNo}"
-                                                        th:href="@{/page=${pageNo}}"></button>
-                                            </span>
-                    <div>
-                        <a th:href="@{/(title=${titles},author=${authors})/(page=${blogList.number +1})}" th:if="${blogList.hasNext()}">
-                            <button class="btn btn-primary">Next</button>
-                        </a>
-                    </div>
+                <div class="btn-group me-2" style="position: fixed;bottom: 2vh;right: 0; height: 30px" role="group" aria-label="First group"
+                     th:if="${statusPage == false}">
+                    <a th:href="@{/(page=${blogList.number - 1})}" th:if="${blogList.hasPrevious()}" class="btn btn-primary"
+                       style="line-height: 100%">Previous</a>
+                    <th:block class="btn btn-primary" th:each="pageNo : ${#numbers.sequence(0,blogList.getTotalPages()-1)}">
+                        <a class="btn btn-primary" th:text="${pageNo + 1}" th:href="@{/(page = ${pageNo})}"
+                           style="color: white; background-color: #0d6efd;width: 40px;text-align: center;line-height: 100%"></a>
+                    </th:block>
+                    <a th:href="@{/(page=${blogList.number + 1})}" th:if="${blogList.hasNext()}" class="btn btn-primary"
+                       style="line-height: 100%">Next</a>
                 </div>
+                <div class="btn-group me-2" style="position: fixed;bottom: 2vh;right: 0; height: 30px" role="group" aria-label="First group"
+                     th:if="${statusPage == true}">
+                    <a th:href="@{/search(title = ${titles},author=${authors},page=${blogList.number - 1})}" th:if="${blogList.hasPrevious()}"
+                       class="btn btn-primary" style="line-height: 100%">Previous</a>
+                    <th:block class="btn btn-primary" th:each="pageNo : ${#numbers.sequence(0,blogList.getTotalPages()-1)}">
+                        <a class="btn btn-primary" th:text="${pageNo + 1}" th:href="@{/list/search(title = ${titles},author=${authors},page = ${pageNo})}"
+                           style="color: white; background-color: #0d6efd;width: 40px;text-align: center;line-height: 100%"></a>
+                    </th:block>
+                    <a th:href="@{/search(title = ${titles},author=${authors},page=${blogList.number + 1})}" th:if="${blogList.hasNext()}"
+                       class="btn btn-primary" style="line-height: 100%">Next</a>
+                </div>
+<!--                <div>-->
+<!--                    <div th:if="">-->
+<!--                        <a th:href="@{/(title=${titles})/(author=${authors})/(page=${blogList.number -1})}" th:if="${blogList.hasPrevious()}">-->
+<!--                            <button class="btn btn-primary">Previous</button>-->
+<!--                        </a>-->
+<!--                    </div>-->
+<!--                    <span th:each="pageNo: ${#numbers.sequence(0,blogList.getTotalPages()-1)}">-->
+<!--                                                <button type="button" th:text="${pageNo}"-->
+<!--                                                        th:href="@{/page=${pageNo}}"></button>-->
+<!--                                            </span>-->
+<!--                    <div>-->
+<!--                        <a th:href="@{/(title=${titles},author=${authors})/(page=${blogList.number +1})}" th:if="${blogList.hasNext()}">-->
+<!--                            <button class="btn btn-primary">Next</button>-->
+<!--                        </a>-->
+<!--                    </div>-->
+<!--                </div>-->
             </div>
         </div>
         <div class="col-2"></div>

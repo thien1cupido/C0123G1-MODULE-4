@@ -22,8 +22,13 @@ public class BlogController {
     private ICategoryService categoryService;
 
     @GetMapping("")
-    public ModelAndView displayBlogList(@RequestParam(value = "page",defaultValue = "0")int page) {
-        return new ModelAndView("blog/list","blogList",blogService.findAllBlogAndPage(page));
+    public String displayBlogList(@RequestParam(value = "page",defaultValue = "0")Integer page,Model model) {
+        Page<Blog>blogList=blogService.findAllBlogAndPage(page);
+        List<Category>categoryList=categoryService.findAllCategory();
+        model.addAttribute("categoryList",categoryList);
+        model.addAttribute("statusPage",false);
+        model.addAttribute("blogList",blogList);
+        return "/blog/list";
     }
 
     @GetMapping("/create")
@@ -38,7 +43,7 @@ public class BlogController {
     public String createBlog(@ModelAttribute("blog")Blog blog, RedirectAttributes redirectAttributes) {
         Boolean check=blogService.addNewBlog(blog);
         redirectAttributes.addFlashAttribute("check",check);
-        return "redirect:/blog/create";
+        return "redirect:/create";
     }
     @GetMapping("/edit")
     public String showBlogUpdatePage(Model model, @RequestParam("blog") Blog blog) {
@@ -57,7 +62,7 @@ public class BlogController {
     public String editBlog(@ModelAttribute("blog") Blog blog, RedirectAttributes redirectAttributes) {
         Boolean check = blogService.editBlog(blog);
         redirectAttributes.addFlashAttribute("check", check);
-        return "redirect:/blog/edit/" + blog.getId();
+        return "redirect:/edit/" + blog.getId();
     }
     @PostMapping("/delete")
     public String deleteBlog(@RequestParam("id")Integer id,RedirectAttributes redirectAttributes){

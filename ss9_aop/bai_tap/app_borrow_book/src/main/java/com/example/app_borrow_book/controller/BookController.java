@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class BookController {
-    @Autowired
+        @Autowired
     private IBookService iBookService;
 
     @GetMapping("")

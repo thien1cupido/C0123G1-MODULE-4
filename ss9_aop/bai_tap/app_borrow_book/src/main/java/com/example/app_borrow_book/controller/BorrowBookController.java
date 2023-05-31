@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import java.util.List;
 
 
@@ -38,12 +40,17 @@ public class BorrowBookController {
     }
     @PostMapping("/borrowBook")
     public String giveBackBook(@RequestParam("codeBook") String codeBook){
-        String error="Error: Do not enter the book code";
         if (codeBook==null){
-            return "error";
+            return "redirect:/showError";
         }
         BorrowBook borrowBook =iBorrowBookService.findBookByNameCode(codeBook);
         iBorrowBookService.returnTheBook(borrowBook);
         return "redirect:/borrowBook";
     }
+//    @ExceptionHandler({NullPointerException.class})
+//    public String showError(Model model){
+//        String error="Error: Do not enter the book code";
+//        model.addAttribute("error",error);
+//        return "error";
+//    }
 }

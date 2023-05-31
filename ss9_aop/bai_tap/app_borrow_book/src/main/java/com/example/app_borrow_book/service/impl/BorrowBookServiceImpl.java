@@ -15,44 +15,59 @@ public class BorrowBookServiceImpl implements IBorrowBookService {
 
     @Autowired
     private IBorrowBookRepository iBorrowBookRepository;
+
     @Override
-    public  List<BorrowBook>borrowBookList(){
-      return iBorrowBookRepository.findAll();
+    public List<BorrowBook> borrowBookList() {
+        return iBorrowBookRepository.findAllByStatusIsTrue();
     }
+
     @Override
     public String createCodeName() {
-        String result="";
-        boolean check=true;
+        String result = "";
+        boolean check = true;
         do {
-        Integer codeName= ThreadLocalRandom.current().nextInt(1,99999);
-        if (codeName<10000){
-            result="0"+codeName;
-        } else if (codeName<1000) {
-            result="00"+codeName;
-        }else if (codeName<100){
-            result="000"+codeName;
-        }else if (codeName<10){
-            result="0000"+codeName;
-        }else {
-            result=""+codeName;
-        }
-        BorrowBook borrowBook =iBorrowBookRepository.findBorrowBooksByCodeName(result);
-            if (borrowBook!=null){
-                check=false;
+            Integer codeName = ThreadLocalRandom.current().nextInt(1, 99999);
+            if (codeName < 10000) {
+                result = "0" + codeName;
+            } else if (codeName < 1000) {
+                result = "00" + codeName;
+            } else if (codeName < 100) {
+                result = "000" + codeName;
+            } else if (codeName < 10) {
+                result = "0000" + codeName;
+            } else {
+                result = "" + codeName;
             }
-        }while (!check);
+            BorrowBook borrowBook = iBorrowBookRepository.findBorrowBooksByCodeName(result);
+            if (borrowBook != null) {
+                check = false;
+            }
+        } while (!check);
         return result;
     }
 
     @Override
-    public Boolean borrowBook(String codeBook,Book book) {
-        BorrowBook borrowBook=new BorrowBook(codeBook,book,true);
+    public Boolean borrowBook(String codeBook, Book book) {
+        BorrowBook borrowBook = new BorrowBook(codeBook, book, true);
         try {
             iBorrowBookRepository.save(borrowBook);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
         return true;
+    }
+
+    @Override
+    public BorrowBook findBookByNameCode(String nameCode) {
+        return iBorrowBookRepository.findBorrowBooksByCodeName(nameCode);
+    }
+
+    @Override
+    public void returnTheBook(BorrowBook borrowBook) {
+        borrowBook.setStatus(false);
+        Integer quantity= borrowBook.getBook().getQuantity()+1;
+        borrowBook.getBook().setQuantity(quantity);
+        iBorrowBookRepository.save(borrowBook);
     }
 }

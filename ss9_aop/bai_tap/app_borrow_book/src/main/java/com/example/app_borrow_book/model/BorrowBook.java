@@ -1,5 +1,6 @@
 package com.example.app_borrow_book.model;
 
+
 import javax.persistence.*;
 
 @Entity
@@ -11,7 +12,7 @@ public class BorrowBook {
     private Integer id;
     @Column(name = "code_name",columnDefinition = "VARCHAR(5)")
     private String codeName;
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "id_book",referencedColumnName = "id_book")
     private Book book;
     private boolean status;
@@ -20,6 +21,14 @@ public class BorrowBook {
         this.codeName = codeName;
         this.book = book;
         this.status = status;
+    }
+
+    public Book getBook() {
+        return book;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
     }
 
     public BorrowBook() {

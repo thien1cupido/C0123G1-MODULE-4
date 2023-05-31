@@ -10,4 +10,7 @@ public interface IBorrowBookService {
     String createCodeName();
 
     Boolean borrowBook(String codeBook, Book book);
+    BorrowBook findBookByNameCode(String nameCode);
+
+    void returnTheBook(BorrowBook borrowBook);
 }

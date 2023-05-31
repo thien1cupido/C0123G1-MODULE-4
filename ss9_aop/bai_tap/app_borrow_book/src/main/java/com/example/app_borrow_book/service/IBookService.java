@@ -10,4 +10,5 @@ public interface IBookService {
     Book findBookById(Integer id);
 
     Boolean editBook(Book book);
+
 }

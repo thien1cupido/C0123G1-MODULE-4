@@ -6,12 +6,9 @@ import com.example.app_borrow_book.service.IBookService;
 import com.example.app_borrow_book.service.IBorrowBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
 import java.util.List;
 
 
@@ -27,7 +24,6 @@ public class BorrowBookController {
         List<BorrowBook>borrowBookList=iBorrowBookService.borrowBookList();
         return new ModelAndView("listBorrow","listBorrowBook",borrowBookList);
     }
-
     @GetMapping("/borrow/{id}")
     public String borrowBook(@PathVariable Integer id) {
         Book book = iBookService.findBookById(id);
@@ -42,7 +38,12 @@ public class BorrowBookController {
     }
     @PostMapping("/borrowBook")
     public String giveBackBook(@RequestParam("codeBook") String codeBook){
-
-        return "redirect:/";
+        String error="Error: Do not enter the book code";
+        if (codeBook==null){
+            return "error";
+        }
+        BorrowBook borrowBook =iBorrowBookService.findBookByNameCode(codeBook);
+        iBorrowBookService.returnTheBook(borrowBook);
+        return "redirect:/borrowBook";
     }
 }

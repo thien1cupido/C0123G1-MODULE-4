@@ -1,38 +1,85 @@
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Shopping Cart</title>
+    <title>Book List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <style>
+
+    </style>
 </head>
 <body>
-<p>
-    <a href="/">Shop</a>
-</p>
-<h1>Your Cart</h1>
-<form th:action="@{/shop}" th:object="${shoppingCart}" method="post">
-    <h3>Total Items: <span th:text="${countQuantity}"></span></h3>
-    <h3>Total Products: <span th:text="${countProduct}"></span></h3>
-    <table border="1">
-        <tr>
-            <th>Item</th>
-            <th>Quantity</th>
-            <th>Price</th>
-        </tr>
-        <tr th:each="product: ${shoppingCart.productMap}">
-            <td th:text="${product.getKey().nameProduct}"></td>
-            <td>
-<!--                <a id="decrease_button" th:text="${'-'}"></a>-->
-                <span th:text="${product.getValue()}"></span>
-<!--                <a id="increase_button" th:href="@{/add/__${product.getKey().id}__(action='show')}"-->
-<!--                   th:text="${'+'}"></a>-->
-            </td>
-            <td th:text="${product.getKey().price}"></td>
-        </tr>
-        <tr>
-            <td>Total</td>
-            <td></td>
-            <td th:text="${totalPayment}"></td>
-        </tr>
-    </table>
-</form>
+<nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: gray;height: 100px">
+    <div class="container-fluid">
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <div class="row">
+                <div class="d-flex justify-content-between col-7">
+                    <div style="display: flex; justify-content: center; align-items: center">
+                        <a th:href="@{/}">
+                            <button class="btn btn-warning">Shop</button>
+                        </a>
+                    </div>
+                    <div class="d-flex justify-content-center my-5">
+                        <h1>Shopping Cart</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-5"></div>
+            <div class="row">
+                <form th:action="@{/shop}" th:object="${shoppingCart}" method="post">
+                    <h3>Total Items: <span th:text="${countQuantity}"></span></h3>
+                    <table class="table table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Operation</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="product: ${shoppingCart.productMap}">
+                            <td th:text="${product.getKey().nameProduct}"></td>
+                            <td>
+                                <div class="d-flex">
+                                    <div th:if="${product.getValue()>1}">
+                                        <a style="text-decoration: none" th:href="@{/operation/{id}(id=${product.key.id}, action='reduce')}">
+                                            <button class="btn btn-info" type="button">-</button></a>
+                                    </div>
+                                    <p th:text="${product.getValue()}" class="p-3"></p>
+                                    <a style="text-decoration: none" th:href="@{/operation/{id}(id=${product.key.id},action='increase')}">
+                                        <button class="btn btn-info" type="button">+</button>
+                                    </a>
+                                </div>
+                            <td th:text="${product.getKey().price}"></td>
+                            <td>
+                                <a th:href="@{/operation/{id}(id=${product.key.id},action='deleteItem')}">
+                                    <button class="btn btn-danger" type="button">Delete</button>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Total</td>
+                            <td></td>
+                            <td th:text="${totalPayment}"></td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <div class="col-2"></div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
 </body>
 </html>

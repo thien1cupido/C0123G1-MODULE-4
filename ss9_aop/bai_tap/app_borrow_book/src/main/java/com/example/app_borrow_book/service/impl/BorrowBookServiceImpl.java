@@ -65,7 +65,7 @@ public class BorrowBookServiceImpl implements IBorrowBookService {
 
     @Override
     public void returnTheBook(BorrowBook borrowBook) {
-        borrowBook.setStatus(false);
+        borrowBook.setStatusBorrowBook(false);
         Integer quantity= borrowBook.getBook().getQuantity()+1;
         borrowBook.getBook().setQuantity(quantity);
         iBorrowBookRepository.save(borrowBook);

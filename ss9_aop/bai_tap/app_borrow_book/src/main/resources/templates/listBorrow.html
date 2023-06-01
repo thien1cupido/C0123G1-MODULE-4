@@ -79,8 +79,8 @@
                         <td th:text="*{borrow.id}"></td>
                         <td th:text="*{borrow.codeName}"></td>
                         <td th:text="*{borrow.book.nameBook}"></td>
-                        <td th:if="*{borrow.status== false}">Book returned</td>
-                        <td th:if="*{borrow.status== true}">Haven't returned the book</td>
+                        <td th:if="*{borrow.statusBorrowBook== false}">Book returned</td>
+                        <td th:if="*{borrow.statusBorrowBook== true}">Haven't returned the book</td>
                         <td>
                     </tr>
                     </tbody>

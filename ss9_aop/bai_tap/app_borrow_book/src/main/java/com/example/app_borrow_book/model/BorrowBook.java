@@ -15,12 +15,12 @@ public class BorrowBook {
     @OneToOne
     @JoinColumn(name = "id_book",referencedColumnName = "id_book")
     private Book book;
-    private boolean status;
+    private boolean statusBorrowBook;
 
     public BorrowBook(String codeName, Book book, boolean status) {
         this.codeName = codeName;
         this.book = book;
-        this.status = status;
+        this.statusBorrowBook = status;
     }
 
     public Book getBook() {
@@ -50,11 +50,11 @@ public class BorrowBook {
         this.codeName = codeName;
     }
 
-    public boolean isStatus() {
-        return status;
+    public boolean isStatusBorrowBook() {
+        return statusBorrowBook;
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
+    public void setStatusBorrowBook(boolean status) {
+        this.statusBorrowBook = status;
     }
 }

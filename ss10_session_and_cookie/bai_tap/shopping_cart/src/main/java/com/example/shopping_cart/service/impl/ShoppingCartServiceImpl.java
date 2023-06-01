@@ -10,7 +10,7 @@ import java.util.Map;
 @Service
 public class ShoppingCartServiceImpl implements IShoppingCartService {
 
-    private boolean checkItemInCart(Product product,ShoppingCart shoppingCart) {
+    private boolean checkItemInCart(Product product, ShoppingCart shoppingCart) {
         for (Map.Entry<Product, Integer> entry : shoppingCart.getProductMap().entrySet()) {
             if (entry.getKey().getId().equals(product.getId())) {
                 return true;
@@ -19,7 +19,7 @@ public class ShoppingCartServiceImpl implements IShoppingCartService {
         return false;
     }
 
-    private Map.Entry<Product, Integer> selectItemInCart(Product product,ShoppingCart shoppingCart) {
+    private Map.Entry<Product, Integer> selectItemInCart(Product product, ShoppingCart shoppingCart) {
         for (Map.Entry<Product, Integer> entry : shoppingCart.getProductMap().entrySet()) {
             if (entry.getKey().getId().equals(product.getId())) {
                 return entry;
@@ -27,16 +27,18 @@ public class ShoppingCartServiceImpl implements IShoppingCartService {
         }
         return null;
     }
+
     @Override
-    public void addProduct(Product product,ShoppingCart shoppingCart) {
-        if (!checkItemInCart(product,shoppingCart)) {
+    public void addProduct(Product product, ShoppingCart shoppingCart) {
+        if (!checkItemInCart(product, shoppingCart)) {
             shoppingCart.getProductMap().put(product, 1);
         } else {
-            Map.Entry<Product, Integer> entry = selectItemInCart(product,shoppingCart);
+            Map.Entry<Product, Integer> entry = selectItemInCart(product, shoppingCart);
             Integer newQuantity = entry.getValue() + 1;
             shoppingCart.getProductMap().replace(entry.getKey(), newQuantity);
         }
     }
+
     @Override
     public Integer countProductQuantity(ShoppingCart shoppingCart) {
         Integer productQuantity = 0;
@@ -45,10 +47,12 @@ public class ShoppingCartServiceImpl implements IShoppingCartService {
         }
         return productQuantity;
     }
+
     @Override
     public Integer countItemQuantity(ShoppingCart shoppingCart) {
         return shoppingCart.getProductMap().size();
     }
+
     @Override
     public long countTotalPayment(ShoppingCart shoppingCart) {
         long payment = 0;
@@ -56,5 +60,19 @@ public class ShoppingCartServiceImpl implements IShoppingCartService {
             payment += entry.getKey().getPrice() * entry.getValue();
         }
         return payment;
+    }
+
+    @Override
+    public void subProduct(Product product, ShoppingCart shoppingCart) {
+        Map.Entry<Product, Integer> entry = selectItemInCart(product, shoppingCart);
+        Integer newQuantity = entry.getValue() - 1;
+        shoppingCart.getProductMap().replace(entry.getKey(), newQuantity);
+    }
+
+    @Override
+    public void deleteItem(Product product, ShoppingCart shoppingCart) {
+        Map<Product, Integer> integerMap = shoppingCart.getProductMap();
+        integerMap.remove(product);
+        shoppingCart.setProductMap(integerMap);
     }
 }

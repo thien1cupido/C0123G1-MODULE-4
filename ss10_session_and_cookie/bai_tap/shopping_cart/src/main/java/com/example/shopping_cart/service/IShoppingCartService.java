@@ -12,4 +12,7 @@ public interface IShoppingCartService {
 
     long countTotalPayment(ShoppingCart shoppingCart);
 
+    void subProduct(Product product, ShoppingCart shoppingCart);
+
+    void deleteItem(Product product, ShoppingCart shoppingCart);
 }

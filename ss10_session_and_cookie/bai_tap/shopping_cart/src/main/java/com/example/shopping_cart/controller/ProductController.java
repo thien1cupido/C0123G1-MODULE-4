@@ -7,11 +7,10 @@ import com.example.shopping_cart.model.Product;
 import com.example.shopping_cart.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,19 +28,15 @@ public class ProductController {
         return new ShoppingCart();
     }
 
-    @GetMapping("")
-    public ModelAndView showList() {
+    @GetMapping("/")
+    public String showList(@ModelAttribute("shoppingCart")ShoppingCart shoppingCart, Model model) {
         List<Product> productList = iProductService.findAllProduct();
-        return new ModelAndView("list", "productList", productList);
-    }
-
-    @GetMapping("/add/{id}")
-    public String addToCart(@PathVariable("id") Integer id, @ModelAttribute ShoppingCart shoppingCart) {
-        Optional<Product> product = iProductService.findProductById(id);
-        if (!product.isPresent()) {
-            return "/error";
+        model.addAttribute("productList",productList);
+        Integer countItem=iShoppingCartService.countItemQuantity(shoppingCart);
+        if (countItem==null){
+            countItem=0;
         }
-        iShoppingCartService.addProduct(product.get(),shoppingCart);
-        return "redirect:/";
+        model.addAttribute("countItem",countItem);
+        return"list";
     }
 }

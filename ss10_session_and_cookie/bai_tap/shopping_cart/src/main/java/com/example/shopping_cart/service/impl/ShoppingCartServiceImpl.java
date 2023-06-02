@@ -77,10 +77,4 @@ public class ShoppingCartServiceImpl implements IShoppingCartService {
         shoppingCart.setProductMap(integerMap);
     }
 
-    @Override
-    public void clearAllProduct(ShoppingCart shoppingCart) {
-        Map<Product, Integer> integerMap = shoppingCart.getProductMap();
-        integerMap.clear();
-        shoppingCart.setProductMap(integerMap);
-    }
 }

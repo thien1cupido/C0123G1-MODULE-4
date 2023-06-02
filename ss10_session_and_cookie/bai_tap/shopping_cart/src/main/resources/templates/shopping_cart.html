@@ -67,11 +67,12 @@
                             <td>Total</td>
                             <td><p>Total Items: <span th:text="${countQuantity}"></span></p></td>
                             <td th:text="${totalPayment}"></td>
-                            <td th:if="${totalPayment!=0 || totalPayment!=null}">
-                                <a th:href="@{/clearAllItem}">
+                            <td th:if="${shoppingCart.productMap.size()!=0}">
+                                <a  th:href="@{/clearAllItem}">
                                     <button class="btn btn-danger" type="button">Clear</button>
                                 </a>
                             </td>
+                            <td th:if="${shoppingCart.productMap.size()==0 ||shoppingCart.productMap==null}" th:text="${''}"></td>
                         </tr>
                         </tbody>
                     </table>

@@ -29,7 +29,7 @@ public class ShoppingCartController {
     }
 
     @GetMapping("/operation/{id}")
-    public String operationToCart(@PathVariable("id") Integer id, @ModelAttribute ShoppingCart shoppingCart,@RequestParam(value = "action", required = false) String action) {
+    public String operationToCart(@PathVariable("id") Integer id, @SessionAttribute("shoppingCart") ShoppingCart shoppingCart, @RequestParam(value = "action", required = false) String action) {
         Optional<Product> product = iProductService.findProductById(id);
         if (!product.isPresent()) {
             return "/error";
@@ -45,7 +45,7 @@ public class ShoppingCartController {
                 iShoppingCartService.subProduct(product.get(), shoppingCart);
                 break;
             case "deleteItem":
-                iShoppingCartService.deleteItem(product.get(),shoppingCart);
+                iShoppingCartService.deleteItem(product.get(), shoppingCart);
                 break;
             default:
                 iShoppingCartService.addProduct(product.get(), shoppingCart);
@@ -53,9 +53,10 @@ public class ShoppingCartController {
         }
         return "redirect:/shopping-cart";
     }
+
     @GetMapping("clearAllItem")
-    public String clearShoppingCart(@ModelAttribute ShoppingCart shoppingCart){
-        iShoppingCartService.clearAllProduct(shoppingCart);
+    public String clearShoppingCart(@SessionAttribute("shoppingCart") ShoppingCart shoppingCart) {
+        shoppingCart.getProductMap().clear();
         return "redirect:/shopping-cart";
     }
 }

@@ -16,5 +16,4 @@ public interface IShoppingCartService {
 
     void deleteItem(Product product, ShoppingCart shoppingCart);
 
-    void clearAllProduct(ShoppingCart shoppingCart);
 }

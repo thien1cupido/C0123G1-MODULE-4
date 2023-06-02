@@ -1,10 +1,10 @@
 package com.example.shopping_cart.model;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class ShoppingCart {
-    private Map<Product, Integer> productMap = new HashMap<>();
+    private Map<Product, Integer> productMap = new LinkedHashMap<>();
 
     public ShoppingCart() {
     }

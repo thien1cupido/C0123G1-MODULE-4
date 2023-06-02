@@ -33,7 +33,6 @@
             <div class="col-5"></div>
             <div class="row">
                 <form th:action="@{/shop}" th:object="${shoppingCart}" method="post">
-                    <h3>Total Items: <span th:text="${countQuantity}"></span></h3>
                     <table class="table table-striped table-hover">
                         <thead>
                         <tr>
@@ -66,9 +65,13 @@
                         </tr>
                         <tr>
                             <td>Total</td>
-                            <td></td>
+                            <td><p>Total Items: <span th:text="${countQuantity}"></span></p></td>
                             <td th:text="${totalPayment}"></td>
-                            <td></td>
+                            <td th:if="${totalPayment!=0 || totalPayment!=null}">
+                                <a th:href="@{/clearAllItem}">
+                                    <button class="btn btn-danger" type="button">Clear</button>
+                                </a>
+                            </td>
                         </tr>
                         </tbody>
                     </table>

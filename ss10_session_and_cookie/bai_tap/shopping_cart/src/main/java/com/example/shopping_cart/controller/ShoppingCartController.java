@@ -53,4 +53,9 @@ public class ShoppingCartController {
         }
         return "redirect:/shopping-cart";
     }
+    @GetMapping("clearAllItem")
+    public String clearShoppingCart(@ModelAttribute ShoppingCart shoppingCart){
+        iShoppingCartService.clearAllProduct(shoppingCart);
+        return "redirect:/shopping-cart";
+    }
 }

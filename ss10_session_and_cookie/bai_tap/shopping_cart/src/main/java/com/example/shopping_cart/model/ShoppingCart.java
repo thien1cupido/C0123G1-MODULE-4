@@ -15,4 +15,5 @@ public class ShoppingCart {
     public void setProductMap(Map<Product, Integer> productMap) {
         this.productMap = productMap;
     }
+
 }

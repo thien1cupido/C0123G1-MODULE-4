@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<!-- /login?error=true -->
+<div th:if="${#request.getParameter('error') == 'true'}"
+     style="color:red;margin:10px 0px;">
+    Login Failed!!!<br/>
+    Reason :
+    <span th:if="${#session!= null and #session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION') != null}"
+          th:utext="${#session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION').message}">
+                Static summary
+         </span>
+
+</div>
+<div class="container">
+    <div class="screen">
+        <div class="screen__content">
+            <form class="login" th:action="@{/j_spring_security}" method='POST'>
+                <div class="login__field">
+                    <i class="login__icon fas fa-user"></i>
+                    <input type="text" name='username' class="login__input" placeholder="User name">
+                </div>
+                <div class="login__field">
+                    <i class="login__icon fas fa-lock"></i>
+                    <input type="password" name='password' class="login__input" placeholder="Password">
+                </div>
+                <input type="checkbox" name="remember-me"/>
+                <lable>Remember Me?</lable>
+                <button class="button login__submit">
+                    <span class="button__text">Log In Now</span>
+                    <i class="button__icon fas fa-chevron-right"></i>
+                </button>
+            </form>
+        </div>
+        <div class="screen__background">
+            <span class="screen__background__shape screen__background__shape4"></span>
+            <span class="screen__background__shape screen__background__shape3"></span>
+            <span class="screen__background__shape screen__background__shape2"></span>
+            <span class="screen__background__shape screen__background__shape1"></span>
+        </div>
+    </div>
+</div>
+</body>
+</html>
